@@ -1,0 +1,6 @@
+# vim temp files
+*.swp
+*.swo
+
+openmct
+node-red

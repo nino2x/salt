@@ -1,0 +1,4 @@
+dev-app-us-west2a:
+  - node-2a
+dev-app-us-west2b:
+  - node-2b
