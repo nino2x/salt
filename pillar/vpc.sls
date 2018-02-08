@@ -1,3 +1,8 @@
+# first attempt at using Jinja templating
+# not recommended for actual use, pretty sure this is broken
+# should probably remove
+# see pillar/aws.sls for something that actually works
+
 {% set region = 'us-west-2' %}
 region: {{ region }}
 
