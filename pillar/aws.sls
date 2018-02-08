@@ -6,7 +6,7 @@ aws:
 # region is only specified here since each region has a different number of availability zones for subnets
     us-west-2:
       vpc:
-# generates any number of identical VPCs named on vpc_list
+# generate any number of identical VPCs named on vpc_list
 {% set vpc_list = ['dev', 'stage'] %}
 {% for vpc_name in vpc_list %}
         {{ vpc_name }}:
@@ -19,7 +19,7 @@ aws:
           internet_gateway:
             name: igw-{{ vpc_name }}
           subnets:
-# generates any number of named subnets in all listed availability zones
+# generate any number of named subnets in all listed availability zones
   {% set subnet_list = ['subApp', 'subRds'] %}
   {% set az_list = ['a', 'b', 'c'] %}
   {% for subnet_name in subnet_list %}
@@ -37,10 +37,10 @@ aws:
 # ----------
     {% endfor %}
   {% endfor %}
-# creates NAT gateway in specified subnet
+# create NAT gateway in specified subnet
           nat_gateway:
             subnet_name: subAppA
-# creates routing tables
+# create routing tables
           routing_tables:
             app_route:
               routes:
@@ -70,7 +70,7 @@ aws:
                 - subRdsA
                 - subRdsB
                 - subRdsC
-# creates security groups
+# create security groups
           security_groups:
             sgBase:
               description: Base SG
