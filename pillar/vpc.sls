@@ -1,7 +1,7 @@
 # first attempt at using Jinja templating
-# not recommended for actual use, pretty sure this is broken
+# not recommended for actual use, terribly formatted
 # should probably remove
-# see pillar/aws.sls for something that actually works
+# see pillar/aws.sls for something that's actually used
 
 {% set region = 'us-west-2' %}
 region: {{ region }}
