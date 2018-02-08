@@ -37,10 +37,11 @@ aws:
 # ----------
     {% endfor %}
   {% endfor %}
-# create NAT gateway in specified subnet
+# NAT gateway and subnet it should be located in
           nat_gateway:
             subnet_name: subAppA
-# create routing tables
+# routing tables for each VPC
+# routes for internet access and peering connection with master's VPC
           routing_tables:
             app_route:
               routes:
@@ -70,7 +71,7 @@ aws:
                 - subRdsA
                 - subRdsB
                 - subRdsC
-# create security groups
+# security groups
           security_groups:
             sgBase:
               description: Base SG
