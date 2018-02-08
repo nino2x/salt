@@ -1,3 +1,5 @@
+// simple js app that displays private IP of a server
+// here mostly just to show which server the load balancer is routing traffic to when accessed
 var os = require('os');
 var http = require('http');
 
