@@ -1,9 +1,12 @@
+# is only used by cidr_ip in security groups
 {% set cidr_global = '10.0.0.0/8' %}
 
 aws:
   region:
+# region is only specified here since each region has a different number of availability zones for subnets
     us-west-2:
       vpc:
+# generates any number of identical VPCs named on vpc_list
 {% set vpc_list = ['dev', 'stage'] %}
 {% for vpc_name in vpc_list %}
         {{ vpc_name }}:
@@ -16,6 +19,7 @@ aws:
           internet_gateway:
             name: igw-{{ vpc_name }}
           subnets:
+# generates any number of named subnets in all listed availability zones
   {% set subnet_list = ['subApp', 'subRds'] %}
   {% set az_list = ['a', 'b', 'c'] %}
   {% for subnet_name in subnet_list %}
@@ -24,14 +28,19 @@ aws:
             {{ subnet_name + az_letter|upper }}:
               az: '{{ az_letter }}'
               subnet_number: '{{ subnet_number ~ loop.index }}'
-      {# if subnet_number == 1 #}
-      {# if subnet_name == 'subWeb' #}
+# ----------
+# NAT gateway attempt
+#      {# if subnet_number == 1 #}
+#      {# if subnet_name == 'subWeb' #}
 #              nat_gateway: true
-      {# endif #}
+#      {# endif #}
+# ----------
     {% endfor %}
   {% endfor %}
+# creates NAT gateway in specified subnet
           nat_gateway:
             subnet_name: subAppA
+# creates routing tables
           routing_tables:
             app_route:
               routes:
@@ -41,10 +50,10 @@ aws:
                 peering:
                   destination_cidr_block: '10.0.0.0/16'
                   vpc_peering_connection_name: {{ vpc_name }}-to-salt-master
-#
+# ----------
 # alternative to vpc_peering_connection_name
 #                  vpc_peering_connection_id: pcx-a434a9cd
-# 
+# ----------
               subnet_names:
                 - subAppA
                 - subAppB
@@ -61,6 +70,7 @@ aws:
                 - subRdsA
                 - subRdsB
                 - subRdsC
+# creates security groups
           security_groups:
             sgBase:
               description: Base SG
